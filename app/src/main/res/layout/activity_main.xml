@@ -20,15 +20,17 @@
         android:layout_margin="10dp">
         <TextView
             android:id="@+id/txtPercent"
-            android:layout_width="50dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="100%"
             android:textSize="20sp"/>
         <ProgressBar
             android:id="@+id/progress_horizontal"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="350dp"
-            android:layout_height="match_parent"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5" />
     </LinearLayout>
     <Button
         android:id="@+id/btnDoIt"

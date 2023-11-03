@@ -40,18 +40,13 @@ public class MainActivity extends Activity {
         edtWork.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
                 nWork=Integer.parseInt(edtWork.getText().toString());
-
             }
         });
         txtPercent = (TextView) findViewById(R.id.txtPercent);
@@ -75,10 +70,10 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        //
         accum = 0;
         txtPercent.setText("0%");
-        progressBar.setMax(MAX_PROGRESS);
+        progressBar.setMax(nWork);
         progressBar.setProgress(0);
         progressBar.setVisibility(View.VISIBLE);
         Thread myBackgroundThread = new Thread(backgroundTask, "backAlias1");
@@ -91,10 +86,10 @@ public class MainActivity extends Activity {
 
             progressBar.incrementProgressBy(progressStep);
             accum+=progressStep;
-            int percent=accum*(MAX_PROGRESS)/nWork;
-            progressBar.setProgress(percent);
+            int percent= (int) (accum*MAX_PROGRESS)/nWork;
+            progressBar.setProgress(accum);
             txtPercent.setText(percent + "%");
-            if (percent>=progressBar.getMax()){
+            if (accum>=progressBar.getMax()){
                 btnDoIt.setEnabled(true);
             }
             else {
@@ -108,7 +103,7 @@ public class MainActivity extends Activity {
             try{
                 for (int n=0;n<nWork;n++){
                     Thread.sleep(1);
-                    globalVar++;
+                    //globalVar++;
                     myHandler.post(foregroundRunnable);
                 }
             } catch (InterruptedException e) {
