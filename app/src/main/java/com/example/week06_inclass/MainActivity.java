@@ -37,18 +37,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         edtWork = (EditText) findViewById(R.id.edtWork);
-        edtWork.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-                nWork=Integer.parseInt(edtWork.getText().toString());
-            }
-        });
         txtPercent = (TextView) findViewById(R.id.txtPercent);
 
         btnDoIt = (Button) findViewById(R.id.btnDoIt);
@@ -58,8 +46,15 @@ public class MainActivity extends Activity {
         btnDoIt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (edtWork.getText().toString().isEmpty()) {
+                    nWork = 0;
+                }
+                else {
+                    nWork=Integer.parseInt(edtWork.getText().toString());
+                }
                 if (nWork>0) {
                     btnDoIt.setEnabled(false);
+                    edtWork.setEnabled(false);
                     onStart();
                 }
 
@@ -83,17 +78,17 @@ public class MainActivity extends Activity {
     private Runnable foregroundRunnable=new Runnable() {
         @Override
         public void run() {
-
-            progressBar.incrementProgressBy(progressStep);
             accum+=progressStep;
             int percent= (int) (accum*MAX_PROGRESS)/nWork;
             progressBar.setProgress(accum);
             txtPercent.setText(percent + "%");
             if (accum>=progressBar.getMax()){
                 btnDoIt.setEnabled(true);
+                edtWork.setEnabled(true);
             }
             else {
                 btnDoIt.setEnabled(false);
+                edtWork.setEnabled(false);
             }
         };
     };
